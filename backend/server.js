@@ -29,6 +29,9 @@ const transporter = nodemailer.createTransport({
   }
 });
 
+
+
+const PORT = process.env.PORT || 3000;
 // Route d'inscription
 app.post("/register", async (req, res) => {
   const { email } = req.body;
@@ -62,7 +65,6 @@ app.post("/register", async (req, res) => {
   }
 });
 
-// Lancer le serveur
-app.listen(3000, () => {
-  console.log("🚀 Serveur démarré sur http://localhost:3000");
+app.listen(PORT, () => {
+  console.log(`🚀 Serveur démarré sur http://localhost:${PORT}`);
 });
