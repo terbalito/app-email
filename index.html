@@ -45,14 +45,18 @@
 <div class="container">
   <h2>Inscris-toi</h2>
   <input type="email" id="email" placeholder="Ton email..." required />
-  <button onclick="register()">S'inscrire</button>
+  <button onclick="register(event)">S'inscrire</button>
   <p id="msg"></p>
 </div>
 
 <script>
-  async function register() {
+  async function register(event) {
+    event.preventDefault(); // empêche le rechargement de la page
     const email = document.getElementById("email").value;
-    
+    const msg = document.getElementById("msg");
+
+    msg.innerText = "Envoi en cours...";
+
     const res = await fetch("http://localhost:3000/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -60,9 +64,17 @@
     });
 
     const data = await res.json();
-    document.getElementById("msg").innerText = data.message;
+
+    msg.innerText = data.message;
+
+    // Laisser le message affiché pendant 20 secondes
+    setTimeout(() => {
+      msg.innerText = "";
+    }, 20000);
   }
 </script>
+
+
 
 </body>
 </html>
